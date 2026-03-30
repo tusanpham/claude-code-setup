@@ -117,28 +117,6 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 CMD ["node", "dist/server.js"]
 ```
 
-### Multi-Stage Dockerfile (Go)
-
-```dockerfile
-FROM golang:1.22-alpine AS builder
-WORKDIR /app
-COPY go.mod go.sum ./
-RUN go mod download
-COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o /server ./cmd/server
-
-FROM alpine:3.19 AS runner
-RUN apk --no-cache add ca-certificates
-RUN adduser -D -u 1001 appuser
-USER appuser
-
-COPY --from=builder /server /server
-
-EXPOSE 8080
-HEALTHCHECK --interval=30s --timeout=3s CMD wget -qO- http://localhost:8080/health || exit 1
-CMD ["/server"]
-```
-
 ### Multi-Stage Dockerfile (Python/Django)
 
 ```dockerfile

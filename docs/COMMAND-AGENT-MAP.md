@@ -12,9 +12,6 @@ This document lists each slash command and the primary agent(s) or skills it inv
 | `/refactor-clean` | refactor-cleaner | Dead code removal |
 | `/update-docs` | doc-updater | Documentation sync |
 | `/update-codemaps` | doc-updater | Codemaps / architecture docs |
-| `/go-review` | go-reviewer | Go code review |
-| `/go-test` | tdd-guide | Go TDD workflow |
-| `/go-build` | go-build-resolver | Fix Go build errors |
 | `/python-review` | python-reviewer | Python code review |
 | `/harness-audit` | — | Harness scorecard (no single agent) |
 | `/loop-start` | loop-operator | Start autonomous loop |

@@ -111,28 +111,16 @@ For each selected category, print the full list of skills below and ask the user
 | `django-security` | Django security: auth, CSRF, SQL injection, XSS prevention |
 | `django-tdd` | Django testing with pytest-django, factory_boy, mocking, coverage |
 | `django-verification` | Django verification loop: migrations, linting, tests, security scans |
-| `laravel-patterns` | Laravel architecture patterns: routing, controllers, Eloquent, queues, caching |
-| `laravel-security` | Laravel security: auth, policies, CSRF, mass assignment, rate limiting |
-| `laravel-tdd` | Laravel testing with PHPUnit and Pest, factories, fakes, coverage |
-| `laravel-verification` | Laravel verification: linting, static analysis, tests, security scans |
 | `frontend-patterns` | React, Next.js, state management, performance, UI patterns |
 | `frontend-slides` | Zero-dependency HTML presentations, style previews, and PPTX-to-web conversion |
-| `golang-patterns` | Idiomatic Go patterns, conventions for robust Go applications |
-| `golang-testing` | Go testing: table-driven tests, subtests, benchmarks, fuzzing |
-| `java-coding-standards` | Java coding standards for Spring Boot: naming, immutability, Optional, streams |
 | `python-patterns` | Pythonic idioms, PEP 8, type hints, best practices |
 | `python-testing` | Python testing with pytest, TDD, fixtures, mocking, parametrization |
-| `springboot-patterns` | Spring Boot architecture, REST API, layered services, caching, async |
-| `springboot-security` | Spring Security: authn/authz, validation, CSRF, secrets, rate limiting |
-| `springboot-tdd` | Spring Boot TDD with JUnit 5, Mockito, MockMvc, Testcontainers |
-| `springboot-verification` | Spring Boot verification: build, static analysis, tests, security scans |
 
-**Category: Database (3 skills)**
+**Category: Database (2 skills)**
 
 | Skill | Description |
 |-------|-------------|
 | `clickhouse-io` | ClickHouse patterns, query optimization, analytics, data engineering |
-| `jpa-patterns` | JPA/Hibernate entity design, relationships, query optimization, transactions |
 | `postgres-patterns` | PostgreSQL query optimization, schema design, indexing, security |
 
 **Category: Workflow & Quality (8 skills)**
@@ -213,7 +201,6 @@ Options:
   - "Common rules (Recommended)" — "Language-agnostic principles: coding style, git workflow, testing, security, etc. (8 files)"
   - "TypeScript/JavaScript" — "TS/JS patterns, hooks, testing with Playwright (5 files)"
   - "Python" — "Python patterns, pytest, black/ruff formatting (5 files)"
-  - "Go" — "Go patterns, table-driven tests, gofmt/staticcheck (5 files)"
 ```
 
 Execute installation:
@@ -224,7 +211,6 @@ cp -r $ECC_ROOT/rules/common/* $TARGET/rules/
 # Language-specific rules (flat copy into rules/)
 cp -r $ECC_ROOT/rules/typescript/* $TARGET/rules/   # if selected
 cp -r $ECC_ROOT/rules/python/* $TARGET/rules/        # if selected
-cp -r $ECC_ROOT/rules/golang/* $TARGET/rules/        # if selected
 ```
 
 **Important**: If the user selects any language-specific rules but NOT common rules, warn them:
@@ -262,11 +248,8 @@ grep -rn "skills/" $TARGET/skills/
 
 Some skills reference others. Verify these dependencies:
 - `django-tdd` may reference `django-patterns`
-- `laravel-tdd` may reference `laravel-patterns`
-- `springboot-tdd` may reference `springboot-patterns`
 - `continuous-learning-v2` references `~/.claude/homunculus/` directory
 - `python-testing` may reference `python-patterns`
-- `golang-testing` may reference `golang-patterns`
 - `crosspost` references `content-engine` and `x-api`
 - `deep-research` references `exa-search` (complementary MCP tools)
 - `fal-ai-media` references `videodb` (complementary media skill)

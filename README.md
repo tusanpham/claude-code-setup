@@ -87,7 +87,7 @@ This repo is the raw code only. The guides explain everything.
 ### v1.9.0 — Selective Install & Language Expansion (Mar 2026)
 
 - **Selective install architecture** — Manifest-driven install pipeline with `install-plan.js` and `install-apply.js` for targeted component installation. State store tracks what's installed and enables incremental updates.
-- **6 new agents** — `typescript-reviewer`, `pytorch-build-resolver`, `java-build-resolver`, `java-reviewer`, `kotlin-reviewer`, `kotlin-build-resolver` expand language coverage to 10 languages.
+- **New agents** — `typescript-reviewer`, `pytorch-build-resolver`, `kotlin-reviewer`, `kotlin-build-resolver`, and related language specialists expand coverage across key stacks.
 - **New skills** — `pytorch-patterns` for deep learning workflows, `documentation-lookup` for API reference research, `bun-runtime` and `nextjs-turbopack` for modern JS toolchains, plus 8 operational domain skills and `mcp-server-patterns`.
 - **Session & state infrastructure** — SQLite state store with query CLI, session adapters for structured recording, skill evolution foundation for self-improving skills.
 - **Orchestration overhaul** — Harness audit scoring made deterministic, orchestration status and launcher compatibility hardened, observer loop prevention with 5-layer guard.
@@ -117,7 +117,7 @@ This repo is the raw code only. The guides explain everything.
 ### v1.6.0 — Codex CLI, AgentShield & Marketplace (Feb 2026)
 
 - **Codex CLI support** — New `/codex-setup` command generates `codex.md` for OpenAI Codex CLI compatibility
-- **7 new skills** — `search-first`, `swift-actor-persistence`, `swift-protocol-di-testing`, `regex-vs-llm-structured-text`, `content-hash-cache-pattern`, `cost-aware-llm-pipeline`, `skill-stocktake`
+- **7 new skills** — `search-first`, `regex-vs-llm-structured-text`, `content-hash-cache-pattern`, `cost-aware-llm-pipeline`, `skill-stocktake`, and related workflow skills
 - **AgentShield integration** — `/security-scan` skill runs AgentShield directly from Claude Code; 1282 tests, 102 rules
 - **GitHub Marketplace** — ECC Tools GitHub App live at [github.com/marketplace/ecc-tools](https://github.com/marketplace/ecc-tools) with free/pro/enterprise tiers
 - **30+ community PRs merged** — Contributions from 30 contributors across 6 languages
@@ -131,7 +131,7 @@ This repo is the raw code only. The guides explain everything.
 
 - **Interactive installation wizard** — New `configure-ecc` skill provides guided setup with merge/overwrite detection
 - **PM2 & multi-agent orchestration** — 6 new commands (`/pm2`, `/multi-plan`, `/multi-execute`, `/multi-backend`, `/multi-frontend`, `/multi-workflow`) for managing complex multi-service workflows
-- **Multi-language rules architecture** — Rules restructured from flat files into `common/` + `typescript/` + `python/` + `golang/` directories. Install only the languages you need
+- **Multi-language rules architecture** — Rules restructured from flat files into `common/` plus language-specific directories (`typescript/`, `python/`, `kotlin/`, etc.). Install only the languages you need
 - **Chinese (zh-CN) translations** — Complete translation of all agents, commands, skills, and rules (80+ files)
 - **GitHub Sponsors support** — Sponsor the project via GitHub Sponsors
 - **Enhanced CONTRIBUTING.md** — Detailed PR templates for each contribution type
@@ -180,16 +180,16 @@ cd everything-claude-code
 npm install        # or: pnpm install | yarn install | bun install
 
 # macOS/Linux
-./install.sh typescript    # or python or golang or swift or php
-# ./install.sh typescript python golang swift php
+./install.sh typescript    # or python or kotlin
+# ./install.sh typescript python kotlin
 # ./install.sh --target cursor typescript
 # ./install.sh --target antigravity typescript
 ```
 
 ```powershell
 # Windows PowerShell
-.\install.ps1 typescript   # or python or golang or swift or php
-# .\install.ps1 typescript python golang swift php
+.\install.ps1 typescript   # or python or kotlin
+# .\install.ps1 typescript python kotlin
 # .\install.ps1 --target cursor typescript
 # .\install.ps1 --target antigravity typescript
 
@@ -212,7 +212,7 @@ For manual install instructions see the README in the `rules/` folder.
 /plugin list everything-claude-code@everything-claude-code
 ```
 
-✨ **That's it!** You now have access to 28 agents, 125 skills, and 60 commands.
+✨ **That's it!** You now have access to 22 agents, 105 skills, and 53 commands.
 
 ---
 
@@ -273,7 +273,7 @@ everything-claude-code/
 |   |-- plugin.json         # Plugin metadata and component paths
 |   |-- marketplace.json    # Marketplace catalog for /plugin marketplace add
 |
-|-- agents/           # 28 specialized subagents for delegation
+|-- agents/           # 22 specialized subagents for delegation
 |   |-- planner.md           # Feature implementation planning
 |   |-- architect.md         # System design decisions
 |   |-- tdd-guide.md         # Test-driven development
@@ -289,17 +289,11 @@ everything-claude-code/
 |   |-- harness-optimizer.md # Harness config tuning
 |   |-- cpp-reviewer.md      # C++ code review
 |   |-- cpp-build-resolver.md # C++ build error resolution
-|   |-- go-reviewer.md       # Go code review
-|   |-- go-build-resolver.md # Go build error resolution
 |   |-- python-reviewer.md   # Python code review
 |   |-- database-reviewer.md # Database/Supabase review
 |   |-- typescript-reviewer.md # TypeScript/JavaScript code review
-|   |-- java-reviewer.md     # Java/Spring Boot code review
-|   |-- java-build-resolver.md # Java/Maven/Gradle build errors
 |   |-- kotlin-reviewer.md   # Kotlin/Android/KMP code review
 |   |-- kotlin-build-resolver.md # Kotlin/Gradle build errors
-|   |-- rust-reviewer.md     # Rust code review
-|   |-- rust-build-resolver.md # Rust build error resolution
 |   |-- pytorch-build-resolver.md # PyTorch/CUDA training errors
 |
 |-- skills/           # Workflow definitions and domain knowledge
@@ -322,32 +316,20 @@ everything-claude-code/
 |   |-- eval-harness/               # Verification loop evaluation (Longform Guide)
 |   |-- verification-loop/          # Continuous verification (Longform Guide)
 |   |-- videodb/                   # Video and audio: ingest, search, edit, generate, stream (NEW)
-|   |-- golang-patterns/            # Go idioms and best practices
-|   |-- golang-testing/             # Go testing patterns, TDD, benchmarks
 |   |-- cpp-coding-standards/         # C++ coding standards from C++ Core Guidelines (NEW)
 |   |-- cpp-testing/                # C++ testing with GoogleTest, CMake/CTest (NEW)
 |   |-- django-patterns/            # Django patterns, models, views (NEW)
 |   |-- django-security/            # Django security best practices (NEW)
 |   |-- django-tdd/                 # Django TDD workflow (NEW)
 |   |-- django-verification/        # Django verification loops (NEW)
-|   |-- laravel-patterns/           # Laravel architecture patterns (NEW)
-|   |-- laravel-security/           # Laravel security best practices (NEW)
-|   |-- laravel-tdd/                # Laravel TDD workflow (NEW)
-|   |-- laravel-verification/       # Laravel verification loops (NEW)
 |   |-- python-patterns/            # Python idioms and best practices (NEW)
 |   |-- python-testing/             # Python testing with pytest (NEW)
-|   |-- springboot-patterns/        # Java Spring Boot patterns (NEW)
-|   |-- springboot-security/        # Spring Boot security (NEW)
-|   |-- springboot-tdd/             # Spring Boot TDD (NEW)
-|   |-- springboot-verification/    # Spring Boot verification (NEW)
 |   |-- configure-ecc/              # Interactive installation wizard (NEW)
 |   |-- security-scan/              # AgentShield security auditor integration (NEW)
-|   |-- java-coding-standards/     # Java coding standards (NEW)
-|   |-- jpa-patterns/              # JPA/Hibernate patterns (NEW)
 |   |-- postgres-patterns/         # PostgreSQL optimization patterns (NEW)
 |   |-- nutrient-document-processing/ # Document processing with Nutrient API (NEW)
 |   |-- project-guidelines-example/   # Template for project-specific skills
-|   |-- database-migrations/         # Migration patterns (Prisma, Drizzle, Django, Go) (NEW)
+|   |-- database-migrations/         # Migration patterns (Prisma, Drizzle, Django, etc.) (NEW)
 |   |-- api-design/                  # REST API design, pagination, error responses (NEW)
 |   |-- deployment-patterns/         # CI/CD, Docker, health checks, rollbacks (NEW)
 |   |-- docker-patterns/            # Docker Compose, networking, volumes, container security (NEW)
@@ -355,13 +337,8 @@ everything-claude-code/
 |   |-- content-hash-cache-pattern/  # SHA-256 content hash caching for file processing (NEW)
 |   |-- cost-aware-llm-pipeline/     # LLM cost optimization, model routing, budget tracking (NEW)
 |   |-- regex-vs-llm-structured-text/ # Decision framework: regex vs LLM for text parsing (NEW)
-|   |-- swift-actor-persistence/     # Thread-safe Swift data persistence with actors (NEW)
-|   |-- swift-protocol-di-testing/   # Protocol-based DI for testable Swift code (NEW)
 |   |-- search-first/               # Research-before-coding workflow (NEW)
 |   |-- skill-stocktake/            # Audit skills and commands for quality (NEW)
-|   |-- liquid-glass-design/         # iOS 26 Liquid Glass design system (NEW)
-|   |-- foundation-models-on-device/ # Apple on-device LLM with FoundationModels (NEW)
-|   |-- swift-concurrency-6-2/       # Swift 6.2 Approachable Concurrency (NEW)
 |   |-- perl-patterns/             # Modern Perl 5.36+ idioms and best practices (NEW)
 |   |-- perl-security/             # Perl security patterns, taint mode, safe I/O (NEW)
 |   |-- perl-testing/              # Perl TDD with Test2::V0, prove, Devel::Cover (NEW)
@@ -380,9 +357,6 @@ everything-claude-code/
 |   |-- checkpoint.md       # /checkpoint - Save verification state (Longform Guide)
 |   |-- verify.md           # /verify - Run verification loop (Longform Guide)
 |   |-- setup-pm.md         # /setup-pm - Configure package manager
-|   |-- go-review.md        # /go-review - Go code review (NEW)
-|   |-- go-test.md          # /go-test - Go TDD workflow (NEW)
-|   |-- go-build.md         # /go-build - Fix Go build errors (NEW)
 |   |-- skill-create.md     # /skill-create - Generate skills from git history (NEW)
 |   |-- instinct-status.md  # /instinct-status - View learned instincts (NEW)
 |   |-- instinct-import.md  # /instinct-import - Import instincts (NEW)
@@ -416,9 +390,7 @@ everything-claude-code/
 |   |   |-- security.md        # Mandatory security checks
 |   |-- typescript/          # TypeScript/JavaScript specific
 |   |-- python/              # Python specific
-|   |-- golang/              # Go specific
-|   |-- swift/               # Swift specific
-|   |-- php/                 # PHP specific (NEW)
+|   |-- kotlin/              # Kotlin/JVM specific
 |
 |-- hooks/            # Trigger-based automations
 |   |-- README.md                 # Hook documentation, recipes, and customization guide
@@ -452,10 +424,7 @@ everything-claude-code/
 |   |-- CLAUDE.md             # Example project-level config
 |   |-- user-CLAUDE.md        # Example user-level config
 |   |-- saas-nextjs-CLAUDE.md   # Real-world SaaS (Next.js + Supabase + Stripe)
-|   |-- go-microservice-CLAUDE.md # Real-world Go microservice (gRPC + PostgreSQL)
 |   |-- django-api-CLAUDE.md      # Real-world Django REST API (DRF + Celery)
-|   |-- laravel-api-CLAUDE.md     # Real-world Laravel API (PostgreSQL + Redis) (NEW)
-|   |-- rust-api-CLAUDE.md        # Real-world Rust API (Axum + SQLx + PostgreSQL) (NEW)
 |
 |-- mcp-configs/      # MCP server configurations
 |   |-- mcp-servers.json    # GitHub, Supabase, Vercel, Railway, etc.
@@ -617,8 +586,6 @@ This gives you instant access to all commands, agents, skills, and hooks.
 > cp -r everything-claude-code/rules/common/* ~/.claude/rules/
 > cp -r everything-claude-code/rules/typescript/* ~/.claude/rules/   # pick your stack
 > cp -r everything-claude-code/rules/python/* ~/.claude/rules/
-> cp -r everything-claude-code/rules/golang/* ~/.claude/rules/
-> cp -r everything-claude-code/rules/php/* ~/.claude/rules/
 >
 > # Option B: Project-level rules (applies to current project only)
 > mkdir -p .claude/rules
@@ -643,8 +610,6 @@ cp everything-claude-code/agents/*.md ~/.claude/agents/
 cp -r everything-claude-code/rules/common/* ~/.claude/rules/
 cp -r everything-claude-code/rules/typescript/* ~/.claude/rules/   # pick your stack
 cp -r everything-claude-code/rules/python/* ~/.claude/rules/
-cp -r everything-claude-code/rules/golang/* ~/.claude/rules/
-cp -r everything-claude-code/rules/php/* ~/.claude/rules/
 
 # Copy commands
 cp everything-claude-code/commands/*.md ~/.claude/commands/
@@ -655,7 +620,7 @@ cp -r everything-claude-code/.agents/skills/* ~/.claude/skills/
 cp -r everything-claude-code/skills/search-first ~/.claude/skills/
 
 # Optional: add niche/framework-specific skills only when needed
-# for s in django-patterns django-tdd laravel-patterns springboot-patterns; do
+# for s in django-patterns django-tdd kotlin-patterns; do
 #   cp -r everything-claude-code/skills/$s ~/.claude/skills/
 # done
 ```
@@ -726,9 +691,7 @@ rules/
   common/          # Universal principles (always install)
   typescript/      # TS/JS specific patterns and tools
   python/          # Python specific patterns and tools
-  golang/          # Go specific patterns and tools
-  swift/           # Swift specific patterns and tools
-  php/             # PHP specific patterns and tools
+  kotlin/          # Kotlin/JVM specific patterns and tools
 ```
 
 See [`rules/README.md`](rules/README.md) for installation and structure details.
@@ -750,7 +713,6 @@ Not sure where to start? Use this quick reference:
 | Find security vulnerabilities | `/security-scan` | security-reviewer |
 | Remove dead code | `/refactor-clean` | refactor-cleaner |
 | Update documentation | `/update-docs` | doc-updater |
-| Review Go code | `/go-review` | go-reviewer |
 | Review Python code | `/python-review` | python-reviewer |
 | Review TypeScript/JavaScript code | *(invoke `typescript-reviewer` directly)* | typescript-reviewer |
 | Audit database queries | *(auto-delegated)* | database-reviewer |
@@ -926,13 +888,13 @@ ECC provides **full Cursor IDE support** with hooks, rules, agents, skills, comm
 ```bash
 # macOS/Linux
 ./install.sh --target cursor typescript
-./install.sh --target cursor python golang swift php
+./install.sh --target cursor python kotlin
 ```
 
 ```powershell
 # Windows PowerShell
 .\install.ps1 --target cursor typescript
-.\install.ps1 --target cursor python golang swift php
+.\install.ps1 --target cursor python kotlin
 ```
 
 ### What's Included
@@ -941,7 +903,7 @@ ECC provides **full Cursor IDE support** with hooks, rules, agents, skills, comm
 |-----------|-------|---------|
 | Hook Events | 15 | sessionStart, beforeShellExecution, afterFileEdit, beforeMCPExecution, beforeSubmitPrompt, and 10 more |
 | Hook Scripts | 16 | Thin Node.js scripts delegating to `scripts/hooks/` via shared adapter |
-| Rules | 34 | 9 common (alwaysApply) + 25 language-specific (TypeScript, Python, Go, Swift, PHP) |
+| Rules | varies | `common/` plus language packs (TypeScript, Python, Kotlin, Java, C++, C#, Perl, etc.) |
 | Agents | Shared | Via AGENTS.md at root (read by Cursor natively) |
 | Skills | Shared + Bundled | Via AGENTS.md at root and `.cursor/skills/` for translated additions |
 | Commands | Shared | `.cursor/commands/` if installed |
@@ -1083,9 +1045,9 @@ The configuration is automatically detected from `.opencode/opencode.json`.
 
 | Feature | Claude Code | OpenCode | Status |
 |---------|-------------|----------|--------|
-| Agents | ✅ 28 agents | ✅ 12 agents | **Claude Code leads** |
-| Commands | ✅ 60 commands | ✅ 31 commands | **Claude Code leads** |
-| Skills | ✅ 125 skills | ✅ 37 skills | **Claude Code leads** |
+| Agents | ✅ 22 agents | ✅ 12 agents | **Claude Code leads** |
+| Commands | ✅ 53 commands | ✅ 31 commands | **Claude Code leads** |
+| Skills | ✅ 105 skills | ✅ 37 skills | **Claude Code leads** |
 | Hooks | ✅ 8 event types | ✅ 11 events | **OpenCode has more!** |
 | Rules | ✅ 29 rules | ✅ 13 instructions | **Claude Code leads** |
 | MCP Servers | ✅ 14 servers | ✅ Full | **Full parity** |
@@ -1123,9 +1085,6 @@ OpenCode's plugin system is MORE sophisticated than Claude Code with 20+ event t
 | `/update-docs` | Update documentation |
 | `/update-codemaps` | Update codemaps |
 | `/test-coverage` | Analyze coverage |
-| `/go-review` | Go code review |
-| `/go-test` | Go TDD workflow |
-| `/go-build` | Fix Go build errors |
 | `/python-review` | Python code review (PEP 8, type hints, security) |
 | `/multi-plan` | Multi-model collaborative planning |
 | `/multi-execute` | Multi-model collaborative execution |

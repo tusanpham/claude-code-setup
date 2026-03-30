@@ -24,8 +24,7 @@ Gather raw signals about the project without reading every file. Run these check
 
 ```
 1. Package manifest detection
-   → package.json, go.mod, Cargo.toml, pyproject.toml, pom.xml, build.gradle,
-     Gemfile, composer.json, mix.exs, pubspec.yaml
+   → package.json, pyproject.toml, Gemfile, mix.exs, pubspec.yaml
 
 2. Framework fingerprinting
    → next.config.*, nuxt.config.*, angular.json, vite.config.*,

@@ -22,7 +22,7 @@ node tests/hooks/hooks.test.js
 
 The project is organized into several core components:
 
-- **agents/** - Specialized subagents for delegation (planner, code-reviewer, tdd-guide, etc.)
+- **agents/** - Specialized subagents for delegation (planner, code-reviewer, tdd-guide, and others)
 - **skills/** - Workflow definitions and domain knowledge (coding standards, patterns, testing)
 - **commands/** - Slash commands invoked by users (/tdd, /plan, /e2e, etc.)
 - **hooks/** - Trigger-based automations (session persistence, pre/post-tool hooks)
